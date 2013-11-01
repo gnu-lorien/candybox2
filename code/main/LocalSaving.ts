@@ -69,8 +69,6 @@ module LocalSaving{
     }
     
     export function supportsLocalSaving(): boolean{
-        if('localStorage' in window && window['localStorage'] !== null && 'applicationCache' in window && window['applicationCache'] !== null)
-            return true;
         return false;
     }
     

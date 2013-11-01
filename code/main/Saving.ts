@@ -14,7 +14,7 @@ module Saving{
             // We don't load anything
             case MainLoadingType.NONE:
                 // You can uncomment the lines below to start your game with everything unlocked (useful for testing purposes)
-                /*
+
                 Saving.saveNumber("aTreeStep", 2);
                 
                 Saving.saveBool("mainMapDoneDesert", true);
@@ -132,7 +132,6 @@ module Saving{
                 Saving.saveBool("castleTowerFirstVisitDone", true);
                 
                 Saving.saveString("gameLanguage", "fr");
-                */
             break;
             case MainLoadingType.LOCAL:
                 LocalSaving.load(loadingString);
