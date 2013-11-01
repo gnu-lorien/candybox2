@@ -3,21 +3,19 @@
 ### Check existing commands
 
 command -v tsc >/dev/null 2>&1 || { echo >&2 "The typescript compiler is not installed"; exit 1; }
-command -v yuicompressor >/dev/null 2>&1 || { echo >&2 "Yuicompressor is not installed"; exit 1; }
-command -v 7za >/dev/null 2>&1 || { echo >&2 "7zip is not installed"; exit 1; }
 
 ### Update the version written in the cacheManifest.mf file to force update of the whole game (see https://developer.mozilla.org/en-US/docs/HTML/Using_the_application_cache )
 
 cd pythonScripts
-python updateCacheManifestVersion.py
+python3.3 updateCacheManifestVersion.py
 cd ..
 
 ### Generate genAscii.ts and genText.ts from the ascii and text files
 ### They will be added in the code/gen dir
 
 cd pythonScripts
-python genAscii.py
-python genText.py
+python3.3 genAscii.py
+python3.3 genText.py
 cd ..
 
 ### Compile the game using tsc
@@ -27,7 +25,7 @@ tsc ./libs/*.ts ./code/main/*.ts ./code/gen/*.ts ./code/arena/*/* --out ./candyb
 
 ## Minify the script with yuicompressor, we get a candybox2.js.temp script
 
-yuicompressor ./candybox2_uncompressed.js.temp --type js --line-break 80 -o candybox2.js.temp
+java -jar ~/yuicompressor-2.4.8.jar ./candybox2_uncompressed.js.temp --type js --line-break 80 -o candybox2.js.temp
 
 ### Create the candybox2.js file from the license and the temp file
 
@@ -45,8 +43,8 @@ rm candybox2.js.temp candybox2_uncompressed.js.temp
 
 ### Create the .zip file we will give to others if they want to work on the game too :)
 
-7za a candybox2.zip ascii code css libs pythonScripts text ascii_art.html cacheManifest.mf candybox2.js candybox2_sourceCodeLicense.txt candybox2_uncompressed.js compile.bat compile.sh create_quest.html faq.html favicon.png index.html install_tsc.html source_code.html
+tar -czf candybox2.tar.gz ascii code css libs pythonScripts text ascii_art.html cacheManifest.mf candybox2.js candybox2_sourceCodeLicense.txt candybox2_uncompressed.js compile.bat compile.sh create_quest.html faq.html favicon.png index.html install_tsc.html source_code.html
 
 ### Create the .zip file we will give to others if they want to work on the ascii art :)
 
-7za a ascii_art.zip ascii
+tar -czf ascii_art.tar.gz ascii
